@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <title>Document</title>
+</head>
+<body class="bg-warning">
+    <script>  
+         console.log("hola");
+         class Peliculas{
+            constructor(nombre,id){
+                this.nombre = nombre
+                this.id = id
+            }
+           reproducirPelicula(){
+
+            return "reproduciendo "+ this.nombre
+           }
+          
+        }
+      Peliculas2 = {
+        nombre :"Xmen",
+        id : 1,
+       reproducirPelicula2 ()  { return "reproduciendo pelicula" }
+
+      }
+          
+      serie = new Peliculas("xmen",2)
+        console.log(serie.reproducirPelicula())
+        console.log(Peliculas2.reproducirPelicula2())
+        </script>
+</body>
+</html>

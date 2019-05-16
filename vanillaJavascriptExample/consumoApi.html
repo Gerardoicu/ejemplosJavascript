@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Consumiendo un API</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body class="bg-warning">
+<div class="container my-5 text-center ">
+    <button class="btn btn-danger w-100" onclick="traer()"> Obtener Personas</button>
+    <div class="mt-5" id="contenido">
+
+
+    </div>
+</div>
+<script>
+    var contenido = document.querySelector('#contenido')
+    let traer = ()=>{
+        let plantilla= ""
+        let contador = 0
+        fetch('https://randomuser.me/api?results=5')
+        .then(data => data.json())
+        .then(data => {
+          
+            data.results.forEach(persona => 
+                 
+               plantilla += `<div class="border border-warning mt-2 p-5 rounded bg-primary container ">
+                <table  width="100% class="table ">
+  <thead>
+    <tr>
+            <th scope="col"><b>Id </b></th>
+            <th scope="col"><b>Foto </b></th>  
+      <th scope="col"><b>Nombre </b></th>
+      <th scope="col"><b>Correo </b></th>
+      <th scope="col">Género</th>
+      <th scope="col">Teléfono</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr> 
+            <td>  ${++contador}</td>
+         <td> <img class="img-fluid border border-dark rounded-circle " src="${persona.picture.large}" alt="persona"></td>        
+      <td> ${persona.name.title.charAt(0).toUpperCase()+persona.name.title.slice(1)}. ${persona.name.first.charAt(0).toUpperCase()+persona.name.first.slice(1)} ${persona.name.last.charAt(0).toUpperCase()+persona.name.last.slice(1)}</td>  
+      <td>  ${persona.email}></td>
+      <td>${persona.gender =="male"? "Masculino":"Femenino"}</td>
+      <td>@${persona.phone}</td>
+    </tr>
+  </td>
+    </tr>
+  </tbody>
+</table>
+        
+             </div>
+            `
+           
+            );
+            console.log(data.results)
+            contenido.innerHTML = plantilla
+        })
+        .catch(error => {
+            respuesta.innerHTML =`<div class="alert alert-danger text-center" role="alert">Hubo un problema con la petición Fetch:'  ${error.message}"</div>")`
+    })
+    }
+</script>
+</body>
+</html>

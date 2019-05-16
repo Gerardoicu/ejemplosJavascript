@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  
+    <title>Botones</title>
+</head>
+<body id="background" class="bg-warning">
+   
+   <div  class="container mt-5 ">
+       <div class="card text-center">
+      
+            <div class=" card-header "> <button id="botoncito"  class = "btn btn-primary ">esto es un boton</button>
+            </div>
+            <div class="card-body" id="botones">                 
+            </div>     
+<script>
+
+    var boton = document.querySelector("#botoncito");
+    var botones = document.querySelector("#botones");
+    var bg = document.querySelector("#background");
+  
+    localStorage.getItem("background-safe") ?( bg.className =  localStorage.getItem("background-safe") ) : console.log("no hay nada almacenado");
+ 
+     ( () => {
+        boton.addEventListener('click',agregarBotones);
+        botones.addEventListener('click',delegacion);
+      })();
+function delegacion(e){
+    e.preventDefault();
+    switch(e.target.classList[1]){
+        case "btn-danger":
+            bg.className = "bg-danger";
+            break;
+        case "btn-success":
+            bg.className = "bg-success";
+            break;
+        case "btn-dark":
+            bg.className = "bg-dark";
+            break;
+        case "btn-warning":
+            bg.className = "bg-warning";
+            break;   
+
+}
+ let persona ={
+  edad : 36,
+  nombre :"Claudia Morales Guisa",
+  fechaNacimiento : "16 de Enero",
+  carrera : "licenciada en educación preescolar"
+
+
+ }
+localStorage.setItem( "background-safe",bg.className);
+localStorage.setItem("persona",JSON.stringify(persona));  
+
+}
+function agregarBotones(e){
+    e.preventDefault();
+    botones.innerHTML = `
+    <button id="botoncito1"  class = "btn btn-dark">dark</button>
+                    <button id="botoncito2"  class = "btn btn-danger">danger</button>
+                    <button id="botoncito3"  class = "btn btn-success">success</button>
+                    <button id="botoncito4"  class = "btn btn-warning">warning</button>              
+    `
+    console.log("haz hecho click");
+}
+   
+    
+   
+</script>
+</body>
+</html>

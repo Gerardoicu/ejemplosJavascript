@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="../css/gym.png" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>GYM VUE</title>
+  </head>
+  <
+  <body class=" bg-success">
+    <div class="container" id="gymVue">
+      <div class="card mt-5">
+        <div class="card-header bg-primary ">
+          <h1>
+            {{ titulo }}
+            <i class="material-icons">
+              accessibility_new
+            </i>
+          </h1>
+        </div>
+
+        <div class="card-body text-center">
+          <input
+            v-on:keyup.enter="agregarTarea"
+            v-model="nuevaTarea"
+            class="form-control my-3 text-center"
+            placeholder="Actividad"
+            id="actividad"
+            type="text"
+          />
+          <button @click="agregarTarea" class="btn btn-primary" id="agregar">
+            Agregar actividad
+          </button>
+
+          <div v-for="(tarea,index) of tareas" id="actividades">
+            <div
+              v-if="tarea.estado"
+              class="alert alert-success float-center mt-4 offset-3 col-6"
+              role="alert"
+            >
+              <b>{{ tarea.actividad }}</b
+              ><i class="material-icons">accessibility_new</i
+              ><span class="float-right"
+                >{{ tarea.estado
+                }}<i @click="cambiarEstado(index)" class="material-icons"
+                  >done</i
+                ><i @click="eliminarTarea(index)" class="material-icons"
+                  >delete</i
+                ></span
+              >
+            </div>
+            <div
+              v-else
+              class="alert alert-danger float-center mt-4 offset-3 col-6"
+              role="alert"
+            >
+              <b>{{ tarea.actividad }}</b
+              ><i class="material-icons">accessibility_new</i
+              ><span class="float-right"
+                >{{ tarea.estado
+                }}<i @click="cambiarEstado(index)" class="material-icons"
+                  >done</i
+                ><i @click="eliminarTarea(index)" class="material-icons"
+                  >delete</i
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/vueApp.js"></script>
+  </body>
+</html>
