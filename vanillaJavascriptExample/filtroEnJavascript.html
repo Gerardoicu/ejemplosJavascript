@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <title>FILTRO</title>
+</head>
+
+<body class="bg-warning">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header form-group ">
+                <label class=" col-2 offset-1 float-left" for="filtro"><b>Filtrar Por Nombre:</b></label>
+                <input id="filtro" type="text" class="form-control col-4 float-left border-primary">
+            </div>
+            <div class="card-body">
+                    <div class= "center-text" id="resultado"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let filtro = document.querySelector("#filtro");
+        let resultado = document.querySelector("#resultado");
+        let personas =[];
+        let contador = 0;
+        let traer = ()=>{
+        let plantilla= ""
+       
+        fetch('https://randomuser.me/api?results=10')
+        .then(data => data.json())
+        .then(data => {
+            data.results.forEach(persona => { 
+                persona["idd"] = contador; 
+                personas.push(persona);   
+               plantilla += `<div class="border border-warning mt-2 p-5 rounded bg-primary container ">
+                <table  width="100% class="table ">
+  <thead>
+    <tr>
+            <th scope="col"><b>Id </b></th>
+            <th scope="col"><b>Foto </b></th>  
+      <th scope="col"><b>Nombre </b></th>
+      <th scope="col"><b>Correo </b></th>
+      <th scope="col">Género</th>
+      <th scope="col">Teléfono</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr> 
+            <td>  ${++contador}</td>
+         <td> <img class="img-fluid border border-dark rounded-circle " src="${persona.picture.large}" alt="persona"></td>        
+      <td> ${persona.name.title.charAt(0).toUpperCase()+persona.name.title.slice(1)}. ${persona.name.first.charAt(0).toUpperCase()+persona.name.first.slice(1)} ${persona.name.last.charAt(0).toUpperCase()+persona.name.last.slice(1)}</td>  
+      <td>  ${persona.email}></td>
+      <td>${persona.gender =="male"? "Masculino":"Femenino"}</td>
+      <td>@${persona.phone}</td>
+    </tr>
+  </td>
+    </tr>
+  </tbody>
+</table>  
+             </div>
+            `
+        } 
+            );
+        
+            resultado.innerHTML = plantilla
+        })
+        .catch(error => {
+            personas =[];
+            respuesta.innerHTML =`<div class="alert alert-danger text-center" role="alert">Hubo un problema con la petición Fetch:'  ${error.message}"</div>")`
+    })
+    }
+        document.addEventListener("DOMContentLoaded", traer);
+        filtro.addEventListener('keyup',function(){
+            contador = 0;
+            resultado.innerHTML =``;
+            let inputValue = filtro.value.toLowerCase(); 
+            personas.forEach((persona) => {
+           if(persona.name.first.lastIndexOf(inputValue,0)!==-1 ||persona.name.last.lastIndexOf(inputValue,0)!==-1){
+            resultado.innerHTML += `<div class="border border-warning mt-2 p-5 rounded bg-primary container ">
+                <table  width="100% class="table ">
+  <thead>
+    <tr>
+            <th scope="col"><b>Id </b></th>
+            <th scope="col"><b>Foto </b></th>  
+      <th scope="col"><b>Nombre </b></th>
+      <th scope="col"><b>Correo </b></th>
+      <th scope="col">Género</th>
+      <th scope="col">Teléfono</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr> 
+            <td>  ${persona.idd+1}</td>
+         <td> <img class="img-fluid border border-dark rounded-circle " src="${persona.picture.large}" alt="persona"></td>        
+      <td> ${persona.name.title.charAt(0).toUpperCase()+persona.name.title.slice(1)}. ${persona.name.first.charAt(0).toUpperCase()+persona.name.first.slice(1)} ${persona.name.last.charAt(0).toUpperCase()+persona.name.last.slice(1)}</td>  
+      <td>  ${persona.email}></td>
+      <td>${persona.gender =="male"? "Masculino":"Femenino"}</td>
+      <td>@${persona.phone}</td>
+    </tr>
+  </td>
+    </tr>
+  </tbody>
+</table>
+        
+             </div>
+            `;
+           }else if(inputValue ===""){
+
+           }
+           });
+            resultado.index
+        })
+    </script>
+</body>
+
+</html>
